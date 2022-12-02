@@ -17,7 +17,7 @@ const CountrySlice = createSlice({
     loading: "idle",
     error: null,
   },
-  reducer: {},
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getUniversities.pending, (state, action) => {
       if (state.loading === "idle") {
