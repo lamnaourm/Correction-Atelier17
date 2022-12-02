@@ -15,12 +15,12 @@ const CountrySlice = createSlice({
     data: [],
     loading: "idle",
     error: null,
-    selectedCountry:''
+    selectedCountry: "",
   },
   reducers: {
-    addCountry: (state,action) => {
-        state.selectedCountry = action.payload
-    }
+    addCountry: (state, action) => {
+      state.selectedCountry = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCountries.pending, (state, action) => {
@@ -31,6 +31,11 @@ const CountrySlice = createSlice({
     builder.addCase(getCountries.fulfilled, (state, action) => {
       if (state.loading === "pending") {
         state.data = action.payload;
+        state.data.sort((a, b) => {
+          const val1 = a.name.common;
+          const val2 = b.name.common;
+          return val1 > val2 ? 1 : val1 < val2 ? -1 : 0;
+        });
         state.loading = "idle";
       }
     });
@@ -44,4 +49,4 @@ const CountrySlice = createSlice({
 });
 
 export default CountrySlice.reducer;
-export const {addCountry} = CountrySlice.actions;
+export const { addCountry } = CountrySlice.actions;
